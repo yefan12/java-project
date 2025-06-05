@@ -1,20 +1,16 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
 public class Java {
     public static void main(String[] args) {
-        Scanner myObj = new Scanner(System.in);
-        System.out.println("Login Username: ");
-        String username = myObj.nextLine();
-        System.out.println("Login Password: ");
-        String password = myObj.nextLine();
-        if (username.equals("admin") && password.equals("admin")) {
-            System.out.println("Login successful!");
-        } else {
-            System.out.println("Login failed. Please try again.");
-        }
-
-        // Additional functionality can be added here
+        // Inisialisasi Scanner untuk input
+        Scanner scanner = new Scanner(System.in);
+        
+        // ArrayList untuk menyimpan barang
+        ArrayList<String> items = new ArrayList<>();
+        
+        // Menampilkan menu utama
         System.out.println("SELAMAT DATANG DI TOKO KITA");
         System.out.println("Silahkan pilih menu yang tersedia:");
         System.out.println("1. Tambah Barang");
@@ -22,18 +18,53 @@ public class Java {
         System.out.println("3. Tampilkan Barang");
         System.out.println("4. Keluar");
         
-        System.out.println("Masukkan pilihan Anda (1-4): ");
-        int choice = myObj.nextInt();
-        switch (choice) {
-            case 1 -> System.out.println("Anda memilih untuk menambah barang.");
-            case 2 -> System.out.println("Anda memilih untuk menghapus barang.");
-            case 3 -> System.out.println("Anda memilih untuk menampilkan barang.");
-            case 4 -> System.out.println("Terima kasih telah menggunakan aplikasi kami. Sampai jumpa!");
+        // Looping untuk menjalankan program sampai pengguna memilih keluar
+        boolean running = true;
+        while (running) {
+            System.out.print("Masukkan pilihan Anda (1-4): ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Clear the newline character
             
-        }
-            if (choice < 1 || choice > 4) {
-                System.out.println("Pilihan tidak valid. Silakan coba lagi.");
+            switch (choice) {
+                case 1:
+                    // Tambah Barang
+                    System.out.print("Masukkan nama barang yang ingin ditambahkan: ");
+                    String itemToAdd = scanner.nextLine();
+                    items.add(itemToAdd);
+                    System.out.println(itemToAdd + " telah ditambahkan.");
+                    break;
+                case 2:
+                    // Hapus Barang
+                    System.out.print("Masukkan nama barang yang ingin dihapus: ");
+                    String itemToRemove = scanner.nextLine();
+                    if (items.remove(itemToRemove)) {
+                        System.out.println(itemToRemove + " telah dihapus.");
+                    } else {
+                        System.out.println(itemToRemove + " tidak ditemukan.");
+                    }
+                    break;
+                case 3:
+                    // Tampilkan Barang
+                    if (items.isEmpty()) {
+                        System.out.println("Tidak ada barang yang tersedia.");
+                    } else {
+                        System.out.println("Daftar Barang:");
+                        for (String item : items) {
+                            System.out.println("- " + item);
+                        }
+                    }
+                    break;
+                case 4:
+                    // Keluar
+                    running = false;
+                    System.out.println("Terima kasih telah menggunakan program ini!");
+                    break;
+                default:
+                    System.out.println("Pilihan tidak valid. Silakan coba lagi.");
             }
-        myObj.close();
-    }
-}
+        }
+        
+                // Menutup Scanner
+                scanner.close();
+            }
+        }
